@@ -33,6 +33,7 @@ public:
 	const std::string MultOperations() const { return multOperations; }
 
 	std::string& InfixExpression() { return infixExpression; }
+	std::string PostfixExpression() const { return postfixExpression; }
 
 	double& operator[](std::string key);
 

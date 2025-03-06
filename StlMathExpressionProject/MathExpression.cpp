@@ -40,3 +40,45 @@ int MathExpression::CheckedBrackets()
 
     return -1;
 }
+
+void MathExpression::CreatePostfix()
+{
+    for (int position{};
+        position < infixExpression.length();
+        position++)
+    {
+        char symbol = infixExpression[position];
+
+        // white spaces ignore
+        if (isspace(symbol)) continue;
+
+        // reading numbers
+        if (isdigit(symbol))
+        {
+            std::string number = "";
+            while ((isdigit(symbol) ||
+                symbol == '.' ||
+                tolower(symbol) == 'e') &&
+                position < infixExpression.length())
+            {
+                if (tolower(symbol) == 'e' &&
+                    infixExpression[position + 1] == '-')
+                {
+                    number.push_back(symbol);
+                    number.push_back(infixExpression[position + 1]);
+                    position += 2;
+                    symbol = infixExpression[position];
+                }
+                else
+                {
+                    number.push_back(symbol);
+                    symbol = infixExpression[++position];
+                }
+            }
+            number.push_back('#');
+            postfixExpression.append(number);
+            position--;
+            continue;
+        }
+    }
+}

@@ -6,13 +6,9 @@
 
 int main()
 {
-    MathExpression expr;
-    expr["a"] = 10;
-    expr["abc"] = 123;
-    expr["a"] = 100;
+    MathExpression expr("(123 - 78.09)*8e-3 + 0.002 / 56.909E2");
+    expr.CreatePostfix();
 
-    for (auto item : expr.Variables())
-    {
-        std::cout << item.first << " -> " << item.second << "\n";
-    }
+    std::cout << expr.PostfixExpression() << "\n";
+    
 }
