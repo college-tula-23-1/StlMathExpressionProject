@@ -15,6 +15,7 @@ class MathExpression
 
 	const std::string addOperations  = "+-";
 	const std::string multOperations = "*/";
+	const std::string operations = addOperations + multOperations;
 
 public:
 	MathExpression() : MathExpression("") {};

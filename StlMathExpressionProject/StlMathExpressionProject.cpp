@@ -6,9 +6,10 @@
 
 int main()
 {
-    MathExpression expr("(123 - 78.09)*8e-3 + 0.002 / 56.909E2");
+    MathExpression expr("(-5.5 + -2) * -3 + (-7 + 9)");
     expr.CreatePostfix();
 
     std::cout << expr.PostfixExpression() << "\n";
+    std::cout << expr.Calculate() << "\n";
     
 }
