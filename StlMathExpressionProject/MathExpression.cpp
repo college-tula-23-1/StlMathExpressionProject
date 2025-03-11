@@ -85,6 +85,33 @@ void MathExpression::CreatePostfix()
             continue;
         }
 
+        // reading vars and funcs
+        if (isalpha(symbol) || symbol == '_')
+        {
+            isUnare = false;
+            std::string var = "";
+            var.push_back(symbol);
+            
+            symbol = infixExpression[++position];
+
+            while ((isalnum(symbol) || symbol == '_') 
+                && position < infixExpression.length())
+            {
+                var.push_back(symbol);
+                symbol = infixExpression[++position];
+            }
+            if (functions.contains(var))
+                stack.push(functions[var]);
+            else
+            {
+                if (variables[var] < 0)
+                    postfixExpression.push_back('~');
+
+                postfixExpression.append(std::to_string(abs(variables[var])));
+                postfixExpression.push_back('#');
+            }
+        }
+
         // open brackets
         if (openBrackets.find(symbol) != std::string::npos)
         {
@@ -163,6 +190,7 @@ double MathExpression::Calculate()
             }
             stack.push(std::stod(number));
         }
+        
         if (operations.find(symbol) != std::string::npos)
         {
             double result{};
@@ -179,7 +207,21 @@ double MathExpression::Calculate()
             default:
                 break;
             }
+            stack.push(result);
+        }
 
+        if (functionsChar.find(symbol) != std::string::npos)
+        {
+            double result{};
+            double operand{ stack.top() }; stack.pop();
+            switch (symbol)
+            {
+            case 's': result = sin(operand); break;
+            case 'c': result = cos(operand); break;
+            case 'l': result = log(operand); break;
+            default:
+                break;
+            }
             stack.push(result);
         }
     }

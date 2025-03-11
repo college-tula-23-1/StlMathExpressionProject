@@ -8,6 +8,8 @@ class MathExpression
 	std::string postfixExpression;
 
 	std::map<std::string, double> variables;
+	std::map<std::string, char> functions;
+	std::string functionsChar = "";
 
 	const std::string openBrackets  = "({[";
 	const std::string closeBrackets = ")}]";
@@ -22,7 +24,15 @@ public:
 
 	MathExpression(std::string infixExpression)
 		: infixExpression{ infixExpression },
-		postfixExpression{ "" } {}
+		postfixExpression{ "" } 
+	{
+		functions["sin"] = 's';
+		functions.insert(std::pair<std::string, char>{ "cos", 'c' });
+		functions["log"] = 'l';
+
+		for (auto item : functions)
+			functionsChar.push_back(item.second);
+	}
 
 	std::map<std::string, double>& Variables() { return variables; }
 

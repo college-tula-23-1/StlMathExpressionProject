@@ -6,7 +6,11 @@
 
 int main()
 {
-    MathExpression expr("(-5.5 + -2) * -3 + (-7 + 9)");
+    MathExpression expr("(a + 10) * sin(b_2) - _count");
+    expr["a"] = 20;
+    expr["b_2"] = 3.1416 / 6;
+    expr["_count"] = 0.2e2;
+
     expr.CreatePostfix();
 
     std::cout << expr.PostfixExpression() << "\n";
